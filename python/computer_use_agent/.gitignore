@@ -1,0 +1,21 @@
+# TeamsFx files
+env/.env.*.user
+env/.env.local
+env/.env.testtool
+.env
+appPackage/build
+
+# python virtual environment
+.venv/
+__pycache__/
+
+# others
+.deployment/
+node_modules/
+
+# Dev tool directories
+/devTools/
+data/
+screenshot.png
+# MacOS system files
+.DS_Store
