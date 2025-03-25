@@ -8,6 +8,8 @@ on:
   # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
+    paths:
+      - "docs/**"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -40,14 +42,12 @@ jobs:
         with:
           node-version: "20"
           cache: pnpm
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-        with:
-          # Automatically inject basePath in your Next.js configuration file and disable
-          # server side image optimization (https://nextjs.org/docs/api-reference/next/image#unoptimized).
-          #
-          # You may remove this line if you want to manage the configuration yourself.
-          static_site_generator: next
+          cache-dependency-path: ./docs/pnpm-lock.yaml
+      - name: Set next.config.ts basePath for GitHub Pages
+        # Sets the NEXT_PUBLIC_BASE_PATH environment variable which is used in the next.config.ts file to set the basePath for GitHub Pages.
+        run: |
+          echo "NEXT_PUBLIC_BASE_PATH=/$(echo ${GITHUB_REPOSITORY} | cut -d'/' -f2)" >> $GITHUB_ENV
+          echo $NEXT_PUBLIC_BASE_PATH
       - name: Restore cache
         uses: actions/cache@v4
         with:
@@ -63,6 +63,8 @@ jobs:
         working-directory: ./docs
       - name: Build with Next.js
         run: pnpm next build
+        env:
+          NEXT_PUBLIC_BASE_PATH: ${{ env.NEXT_PUBLIC_BASE_PATH }}
         working-directory: ./docs
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

@@ -40,7 +40,9 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Production Build
+## Production
+
+### Build
 
 To create static export build to `out/` folder, run:
 
@@ -52,6 +54,10 @@ pnpm next build
 > application into HTML, CSS, JS, and static assets that can be deployed as a static page. Hence features like
 > Server-side rendering, Dynamic routes, and many more do not work. The local development server support these features
 > and so it is possible to introduce code changes that work locally but will failed on static export build.
+
+### Testing in Github Pages
+
+First create a fork of this repo. Then enable Github Actions and Github Pages. Run the `Deploy Next.js site to Pages` workflow to deploy to Github Pages. Once testing is done in your forked repository, you can create a PR to merge it into the source repository.
 
 ## Other commands
 
@@ -70,6 +76,51 @@ pnpm format
 ## Templates
 
 Templates in the gallery are loaded from the `public/data/templates.yaml` file.
+
+Each template in `templates.yaml` has the following fields:
+
+- `id`: Unique identifier for the template
+- `title`: Display name of the template
+- `description`: Short summary of the template's functionality
+- `longDescription`: Detailed description of template's functionality. Supports markdown links and bold syntax.
+- `featuresList`: Array of key features with emoji icons
+- `tags`: Array of relevant technology/feature tags
+- `githubUrl`: Link to the template's source code repository
+- `imageUrl`: Path to the template's thumbnail image
+- `author`: Creator/maintainer of the template
+- `language`: Primary programming language used
+- `readmeUrl`: Raw URL to the template's README file
+- `demoUrlGif`: URL to an animated GIF demonstrating the template
+
+### How update templates in the gallery?
+
+Update the `public/data/templates.yaml` file.
+
+### Discussion: Centralized template data file VS Distributed template data files
+
+#### Centralized template data file
+
+##### Pros
+
+- Single source of truth. Easier to update changes that will affect multiple templates.
+- Easily integrates into next build process. `public/data/templates.yaml` file is served as a single static asset on Github pages.
+
+##### Cons
+
+- Detached from source folders of individual templates. Easy to forget to update.
+
+#### Distributed template files
+
+Each template folder will have a `template.yaml` file with the same exact information.
+
+##### Pros
+
+- Lives in template folder. Easy to update.
+
+##### Cons
+
+- Tightly coupled with repository folder structure. Requires `template.yaml` files to be under `<language>/<template>/template.yaml` repository structure. For example `python/computer-use-agent/template.yaml`.
+- Slightly complicates Next build process. Will have to copy files over and merge into a single `templates.yaml` file.
 
 ## Appendix
 

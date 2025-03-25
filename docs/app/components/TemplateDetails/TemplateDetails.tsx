@@ -1,24 +1,21 @@
 'use client';
 
-import { FC } from 'react';
-import { Button, Text, Link, tokens } from '@fluentui/react-components';
+import { FC, useState } from 'react';
+import {
+  Button,
+  Text,
+  Link,
+  tokens,
+  Skeleton,
+} from '@fluentui/react-components';
 import { ArrowLeft24Regular, Open16Regular } from '@fluentui/react-icons';
 import Modal from '../Modal/Modal';
 import useStyles from './TemplateDetails.styles';
+import type { Template } from '../TemplateGallery/TemplateGallery';
 
-interface TemplateDetailsProps {
+export interface TemplateDetailsProps extends Template {
   isOpen: boolean;
   onClose: () => void;
-  title: string;
-  description: string;
-  longDescription: string;
-  featuresList: string[];
-  githubUrl: string;
-  language: string;
-  tags: string[];
-  imageUrl: string;
-  demoUrlGif: string;
-  author: string;
 }
 
 const renderMarkdown = (text: string): JSX.Element => {
@@ -66,6 +63,40 @@ const renderMarkdown = (text: string): JSX.Element => {
   return <span>{elements}</span>;
 };
 
+const DemoImage = ({
+  src,
+  alt,
+  className,
+}: {
+  src: string;
+  alt: string;
+  className: string;
+}) => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  return (
+    <>
+      {isLoading && (
+        <Skeleton
+          style={{
+            width: '100%',
+            height: '300px',
+            borderRadius: tokens.borderRadiusLarge,
+          }}
+        />
+      )}
+      <img
+        src={src}
+        alt={alt}
+        className={`${className} ${isLoading ? 'hidden' : ''}`}
+        loading="lazy"
+        onLoad={() => setIsLoading(false)}
+        onError={() => setIsLoading(false)}
+      />
+    </>
+  );
+};
+
 const TemplateDetails: FC<TemplateDetailsProps> = ({
   isOpen,
   onClose,
@@ -78,7 +109,6 @@ const TemplateDetails: FC<TemplateDetailsProps> = ({
   tags,
   imageUrl,
   demoUrlGif,
-  author,
 }) => {
   const classes = useStyles();
 
@@ -180,7 +210,7 @@ const TemplateDetails: FC<TemplateDetailsProps> = ({
             <div className={classes.section}>
               <Text className={classes.sectionTitle}>Demo</Text>
               <div className={classes.demoContainer}>
-                <img
+                <DemoImage
                   src={demoUrlGif}
                   alt={`${title} demo`}
                   className={classes.demo}

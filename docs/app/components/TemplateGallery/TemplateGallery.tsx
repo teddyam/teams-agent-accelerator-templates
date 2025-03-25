@@ -1,14 +1,12 @@
 'use client';
 
-import { Text, Input, Checkbox } from '@fluentui/react-components';
-import { Search24Regular } from '@fluentui/react-icons';
 import useStyles from './TemplateGallery.styles';
 import TemplateCard from '../TemplateCard/TemplateCard';
 import { FC, useEffect, useState } from 'react';
 import { parse } from 'yaml';
 import config from '../../../next.config';
 
-interface Template {
+export interface Template {
   title: string;
   description: string;
   tags: string[];
