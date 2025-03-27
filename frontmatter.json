@@ -1,0 +1,91 @@
+{
+  "$schema": "https://frontmatter.codes/frontmatter.schema.json",
+  "frontMatter.taxonomy.contentTypes": [
+    {
+      "name": "template",
+      "pageBundle": false,
+      "previewPath": null,
+      "fields": [
+        {
+          "title": "ID",
+          "name": "id",
+          "type": "string"
+        },
+        {
+          "title": "Title",
+          "name": "title", 
+          "type": "string"
+        },
+        {
+          "title": "Description",
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "title": "Long Description",
+          "name": "longDescription",
+          "type": "string"
+        },
+        {
+          "title": "Features List",
+          "name": "featuresList",
+          "type": "list"
+        },
+        {
+          "title": "Tags",
+          "name": "tags",
+          "type": "tags"
+        },
+        {
+          "title": "GitHub URL",
+          "name": "githubUrl",
+          "type": "string"
+        },
+        {
+          "title": "Image URL",
+          "name": "imageUrl",
+          "type": "string"
+        },
+        {
+          "title": "Author",
+          "name": "author",
+          "type": "string"
+        },
+        {
+          "title": "Language",
+          "name": "language",
+          "type": "string"
+        },
+        {
+          "title": "README URL",
+          "name": "readmeUrl",
+          "type": "string"
+        },
+        {
+          "title": "Demo GIF URL",
+          "name": "demoUrlGif",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "frontMatter.git.enabled": true,
+  "frontMatter.content.pageFolders": [
+    {
+      "path": "[[workspace]]/js/data-analyst-agent",
+      "title": "data-analyst-agent"
+    },
+    {
+      "path": "[[workspace]]/python/computer-use-agent", 
+      "title": "computer-use-agent"
+    },
+    {
+      "path": "[[workspace]]/python/web-browsing-agent",
+      "title": "web-browsing-agent"
+    },
+    {
+      "path": "[[workspace]]/python/memory-sample-agent",
+      "title": "memory-sample-agent"
+    }
+  ]
+}

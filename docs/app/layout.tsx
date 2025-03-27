@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react';
 import useStyles from './layout.styles';
 import { ThemeContext } from './contexts/ThemeContext';
 import ClarityScript from './clarity';
+import NavBar from './components/NavBar/NavBar';
 import PageLoader from './components/PageLoader/PageLoader';
 
 export default function RootLayout({
@@ -34,13 +35,17 @@ export default function RootLayout({
 
   return (
     <html lang="en">
+      <title>Teams Agent Accelerator Samples</title>
       <body className={classes.root}>
         <ThemeContext.Provider value={{ isDark, toggleTheme }}>
           <FluentProvider theme={isDark ? webDarkTheme : webLightTheme}>
             {isLoading ? (
               <PageLoader />
             ) : (
-              <main className={classes.main}>{children}</main>
+              <main className={classes.main}>
+                <NavBar />
+                {children}
+              </main>
             )}
           </FluentProvider>
         </ThemeContext.Provider>
