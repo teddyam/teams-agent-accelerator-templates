@@ -13,10 +13,10 @@ export default makeStyles({
     transition: 'all 0.2s ease-in-out',
     display: 'flex',
     flexDirection: 'column',
-    ':hover': {
-      backgroundColor: tokens.colorNeutralBackground2,
-    },
     boxShadow: 'none',
+    ':hover': {
+      boxShadow: `0 4px 8px ${tokens.colorNeutralShadowAmbient}`,
+    },
     border: `1px solid ${tokens.colorNeutralStroke1}`,
   },
   preview: {
@@ -25,10 +25,32 @@ export default makeStyles({
     borderTopLeftRadius: tokens.borderRadiusLarge,
     borderTopRightRadius: tokens.borderRadiusLarge,
     flexShrink: 0,
+    position: 'relative',
   },
   previewImage: {
     objectFit: 'cover',
     flexShrink: 0,
+    transition: 'opacity 0.3s ease-in-out',
+  },
+  skeleton: {
+    width: '100%',
+    height: '100%',
+    background: `linear-gradient(90deg, ${tokens.colorNeutralBackground3} 25%, ${tokens.colorNeutralBackground2} 50%, ${tokens.colorNeutralBackground3} 75%)`,
+    backgroundSize: '200% 100%',
+    animation: 'shimmer 1.5s infinite',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    opacity: 1,
+    transition: 'opacity 0.3s ease-in-out',
+  },
+  '@keyframes shimmer': {
+    '0%': {
+      backgroundPosition: '200% 0',
+    },
+    '100%': {
+      backgroundPosition: '-200% 0',
+    },
   },
   content: {
     position: 'relative',
@@ -95,6 +117,20 @@ export default makeStyles({
     alignItems: 'center',
     gap: tokens.spacingHorizontalXS,
   },
+  languageSection: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: tokens.spacingHorizontalXS,
+  },
+  actionButton: {
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    fontSize: '20px',
+    ':hover': {
+      color: tokens.colorNeutralForeground1,
+    },
+  },
   languageDot: {
     width: '8px',
     height: '8px',
@@ -103,5 +139,8 @@ export default makeStyles({
   languageText: {
     fontSize: tokens.fontSizeBase100,
     color: tokens.colorNeutralForeground3,
+  },
+  link: {
+    textDecoration: 'none',
   },
 });

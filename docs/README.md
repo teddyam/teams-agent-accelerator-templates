@@ -12,7 +12,7 @@ This gallery is built with:
 - [React 8](https://react.dev/)
 - [Fluent UI](https://react.fluentui.dev/)
 - [Node.js 20](https://nodejs.org/)
-- [pnpm](https://pnpm.io/)
+- [npm](https://www.npmjs.com/)
 
 The gallery provides a curated collection of Teams app templates that developers can use as starting points for building their own AI-powered Teams applications. Each template includes:
 
@@ -35,7 +35,7 @@ The gallery provides a curated collection of Teams app templates that developers
 First, run the development server:
 
 ```bash
-pnpm dev
+npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
@@ -46,8 +46,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 To create static export build to `out/` folder, run:
 
-```
-pnpm next build
+```bash
+npm run build
 ```
 
 > Next.js [static export](https://nextjs.org/docs/pages/building-your-application/deploying/static-exports) builds the
@@ -63,19 +63,19 @@ First create a fork of this repo. Then enable Github Actions and Github Pages in
 
 ### Linter
 
-```
-pnpm lint
+```bash
+npm run lint
 ```
 
 ### Format using Prettier
 
-```
-pnpm format
+```bash
+npm run format
 ```
 
 ## Templates
 
-Templates in the gallery are loaded from the [frontmatter](https://frontmatter.codes/) of each samples' README file.
+Templates in the gallery are loaded from the [frontmatter](https://frontmatter.codes/) of each templates' README file.
 
 For example the Front Matter in the `Data Analyst Agent`'s README file:
 
@@ -104,7 +104,36 @@ demoUrlGif: ...
 
 # Data Analyst Agent for Microsoft Teams
 
-This sample demonstrates....
+This template demonstrates....
+```
+
+For example the Front Matter in the `Data Analyst Agent`'s README file:
+
+```md
+---
+id: data-analyst-agent
+title: 'Data Analyst Agent'
+description: 'Natural language interface for data exploration and visualization.'
+longDescription: ...
+featuresList:
+  - '🔍 Query databases using natural language'
+  - '📊 Generate visualizations using Adaptive Cards from query results'
+  - '📈 Analyze data patterns and trends'
+  - "🔄 'reset' command to clear the conversation history."
+tags:
+  - 'llm-sql'
+  - 'adaptive-cards'
+  - 'data-viz'
+githubUrl: ...
+imageUrl: '/data-analyst-thumbnail.png'
+author: 'Microsoft'
+language: 'JavaScript'
+demoUrlGif: ...
+---
+
+# Data Analyst Agent for Microsoft Teams
+
+This template demonstrates....
 ```
 
 Each template in `templates.yaml` has the following fields:
@@ -119,7 +148,6 @@ Each template in `templates.yaml` has the following fields:
 - `imageUrl`: Path to the template's thumbnail image
 - `author`: Creator/maintainer of the template
 - `language`: Primary programming language used
-- `readmeUrl`: Raw URL to the template's README file
 - `demoUrlGif`: URL to an animated GIF demonstrating the template
 
 ### How to add a template to the gallery?
@@ -140,6 +168,18 @@ The object will look like this:
 The `path` should point to the folder that contains the `README.md` file.
 
 3. Once that is done follow instructions in the [Testing In Github Pages](#testing-in-github-pages) section to test your changes.
+
+#### How to generate thumbnail image for template?
+
+The thumbnail images were generated using [Microsoft Designer](https://designer.microsoft.com/image-creator?scenario=background-texttoimage). Navigate to the `Create backgrounds` section, select `wide` as the size of image.
+
+Here's the prompt used to generate the Computer Use Agent thumbnail:
+
+```
+Create a thumbnail image of a robot fixing a computer. The art style should be minimalistic.
+```
+
+Anything along these lines should produce a decent looking image that will fit the visual style of other images in the gallery.
 
 ## Appendix
 

@@ -1,14 +1,13 @@
-import { parse } from 'yaml';
-import { Template } from '@/app/components/TemplateGallery/TemplateGallery';
-import fs from 'fs/promises';
+import { loadTemplates, Template } from '@/app/page';
 import TemplateDetails from '@/app/components/TemplateDetails/TemplateDetails';
 import { Metadata } from 'next';
+
+const TEMPLATES = loadTemplates();
 
 export async function generateStaticParams() {
   let templates: Template[] = [];
   try {
-    const response = await fs.readFile('public/data/templates.yaml', 'utf8');
-    templates = parse(response).templates;
+    templates = TEMPLATES;
   } catch (error) {
     console.error('Error loading templates:', error);
   }
@@ -25,8 +24,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   let templates: Template[] = [];
   try {
-    const response = await fs.readFile('public/data/templates.yaml', 'utf8');
-    templates = parse(response).templates;
+    templates = TEMPLATES;
   } catch (error) {
     console.error('Error loading templates:', error);
   }
@@ -48,9 +46,7 @@ export async function generateMetadata({
 
 async function getTemplate(id: string): Promise<Template | null> {
   try {
-    const response = await fs.readFile('public/data/templates.yaml', 'utf8');
-    const templates = parse(response).templates;
-    return templates.find((template: Template) => template.id === id) || null;
+    return TEMPLATES.find((template: Template) => template.id === id) || null;
   } catch (error) {
     console.error('Error loading template:', error);
     return null;

@@ -1,10 +1,10 @@
 ---
-# This will be used to generate template information in the template gallery. Only Markdown links, and **bold** tags are supported in `longDescription`.
 id: data-analyst-agent
 title: "Data Analyst Agent"
 description: "Natural language interface for data exploration and visualization."
 longDescription: |
   This sample demonstrates how to build an AI-powered data analyst agent that can be integrated into Microsoft Teams. It helps users explore and visualize data through natural language conversations and Adaptive Cards charts.
+
   Check out the [LinkedIn post](https://www.linkedin.com/feed/update/urn:li:activity:7305726858308792321/) for a video of the sample in action.
 featuresList:
   - "🔍 Query databases using natural language"
@@ -19,7 +19,6 @@ githubUrl: "https://github.com/microsoft/teams-agent-accelerator-samples/blob/ma
 imageUrl: "https://github.com/microsoft/teams-agent-accelerator-samples/raw/main/js/data-analyst-agent/assets/data-analyst-thumbnail.png"
 author: "Microsoft"
 language: "JavaScript"
-readmeUrl: "https://raw.githubusercontent.com/microsoft/teams-agent-accelerator-samples/refs/heads/main/js/data-analyst-agent/README.md"
 demoUrlGif: "https://github.com/microsoft/teams-agent-accelerator-samples/raw/main/js/data-analyst-agent/assets/demo.gif"
 ---
 

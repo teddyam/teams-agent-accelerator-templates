@@ -1,91 +1,44 @@
 'use client';
 
 import { FC, useState } from 'react';
-import {
-  Button,
-  Text,
-  Link,
-  tokens,
-  Skeleton,
-} from '@fluentui/react-components';
+import { Button, Text, tokens, Skeleton } from '@fluentui/react-components';
 import { ArrowLeft24Regular, Open16Regular } from '@fluentui/react-icons';
 import useStyles from './TemplateDetails.styles';
-import type { Template } from '../TemplateGallery/TemplateGallery';
+import type { Template } from '@/app/page';
 import NextLink from 'next/link';
 
 export interface TemplateDetailsProps extends Template {}
 
-const renderMarkdown = (text: string): JSX.Element => {
-  // First process bold text
-  const processBold = (part: string): JSX.Element[] => {
-    const parts = part.split(/(\*\*.*?\*\*)/g);
-    return parts.map((boldPart, idx) => {
-      const boldMatch = boldPart.match(/\*\*(.*?)\*\*/);
-      if (boldMatch) {
-        return <b key={idx}>{boldMatch[1]}</b>;
-      }
-      return <span key={idx}>{boldPart}</span>;
-    });
-  };
-
-  // Then process links and line breaks
-  const parts = text.split(/(\[.*?\]\(.*?\))/g);
-  const elements = parts.map((part, index) => {
-    const linkMatch = part.match(/\[(.*?)\]\((.*?)\)/);
-    if (linkMatch) {
-      const [, text, url] = linkMatch;
-      return (
-        <Link key={index} href={url} target="_blank" aria-label={text}>
-          {processBold(text)}
-        </Link>
-      );
-    }
-    return (
-      <span key={index}>
-        {part.split('\n').map((line, i) =>
-          i === 0 ? (
-            processBold(line)
-          ) : (
-            <span key={i}>
-              <br />
-              <br />
-              {processBold(line)}
-            </span>
-          )
-        )}
-      </span>
-    );
-  });
-
-  return <span>{elements}</span>;
+const displayMarkdownHTML = (
+  text: string,
+  classes: Record<string, string>
+): JSX.Element => {
+  return (
+    <span
+      dangerouslySetInnerHTML={{ __html: text }}
+      className={classes.markdown}
+    ></span>
+  );
 };
 
 const DemoImage = ({
   src,
   alt,
-  className,
+  classes,
 }: {
   src: string;
   alt: string;
-  className: string;
+  classes: Record<string, string>;
 }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   return (
     <>
-      {isLoading && (
-        <Skeleton
-          style={{
-            width: '100%',
-            height: '300px',
-            borderRadius: tokens.borderRadiusLarge,
-          }}
-        />
-      )}
+      {isLoading && <Skeleton className={classes.loadingSkeleton} />}
       <img
         src={src}
         alt={alt}
-        className={`${className} ${isLoading ? 'hidden' : ''}`}
+        className={`${classes.demo} ${isLoading ? 'hidden' : ''}`}
         loading="lazy"
         onLoad={() => setIsLoading(false)}
         onError={() => setIsLoading(false)}
@@ -127,7 +80,7 @@ const TemplateDetails: FC<TemplateDetailsProps> = ({
       <div className={classes.mainContent}>
         <div className={classes.leftColumn}>
           <div className={classes.leftColumnContent}>
-            <NextLink href="/" style={{ textDecoration: 'none' }}>
+            <NextLink href="/" className={classes.nextLink}>
               <Button
                 appearance="subtle"
                 icon={<ArrowLeft24Regular />}
@@ -183,7 +136,7 @@ const TemplateDetails: FC<TemplateDetailsProps> = ({
             <Text className={classes.sectionTitle}>Description</Text>
             <div className={classes.contentBox}>
               <div className={classes.description}>
-                {renderMarkdown(longDescription)}
+                {displayMarkdownHTML(longDescription, classes)}
               </div>
             </div>
           </div>
@@ -194,7 +147,7 @@ const TemplateDetails: FC<TemplateDetailsProps> = ({
               <ul className={classes.featuresList}>
                 {featuresList.map((feature, index) => (
                   <li key={index} className={classes.featureItem}>
-                    {renderMarkdown(feature)}
+                    {displayMarkdownHTML(feature, classes)}
                   </li>
                 ))}
               </ul>
@@ -207,7 +160,7 @@ const TemplateDetails: FC<TemplateDetailsProps> = ({
               <DemoImage
                 src={demoUrlGif}
                 alt={`${title} demo`}
-                className={classes.demo}
+                classes={classes}
               />
             </div>
           </div>
