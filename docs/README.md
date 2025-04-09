@@ -98,8 +98,8 @@ githubUrl: ...
 imageUrl: '/data-analyst-thumbnail.png'
 author: 'Microsoft'
 language: 'JavaScript'
-readmeUrl: ...
 demoUrlGif: ...
+demoYoutubeVideoId: ...
 ---
 
 # Data Analyst Agent for Microsoft Teams
@@ -182,6 +182,9 @@ Create a thumbnail image of a robot fixing a computer. The art style should be m
 Anything along these lines should produce a decent looking image that will fit the visual style of other images in the gallery.
 
 ## Appendix
+
+### Design Decisions
+- If the `demoYoutubeVideoId` is provided then a youtube video will be shown in the "Demo" sections. Otherwise the `demoUrlGif` will be used. If you have a demo video then feel free to omit the `demoUrlGif` all together.
 
 ### Caveats
 
