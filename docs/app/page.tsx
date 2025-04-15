@@ -9,6 +9,7 @@ import remarkBreaks from 'remark-breaks';
 import remarkGfm from 'remark-gfm';
 import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
+import rehypeSanitize from 'rehype-sanitize';
 
 export interface Template {
   id: string;
@@ -32,6 +33,7 @@ const UNIFIED_PROCESSOR = unified()
   .use(remarkBreaks)
   .use(remarkGfm)
   .use(remarkRehype)
+  .use(rehypeSanitize)
   .use(rehypeStringify)
 
 function markdownToHtml(text: string): string {
