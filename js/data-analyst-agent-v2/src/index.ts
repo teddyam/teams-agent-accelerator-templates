@@ -16,18 +16,34 @@ app.on('install.add', async ({ send }) => {
     );
 });
 
-app.on('message', async ({ send, activity }) => {
+app.on('message', async ({ stream, send, activity }) => {
     await send({ type: 'typing' });
-    const res = await prompt.send(activity.text);
-    console.log('Response from prompt:', res);
 
-  
-    let resObj: any = res;
-    if (typeof res.content === 'string') {
+    // Streaming text response using onChunk
+    let streamedText = '';
+    let fullResponse = '';
+    let sentMessageId: string | undefined;
+    try {
+        const res = await prompt.send(activity.text, {
+            onChunk: async (chunk) => {
+                if (typeof chunk === 'string') {
+                    stream.emit(chunk);
+                }
+            }
+        });
+        fullResponse = typeof res.content === 'string' ? res.content : JSON.stringify(res.content);
+    } catch (err) {
+        await send({ type: 'message', text: 'Error streaming response.' });
+        return;
+    }
+
+    // After streaming, parse the full response for chart data
+    let resObj: any = fullResponse;
+    if (typeof fullResponse === 'string') {
         try {
-            resObj = JSON.parse(res.content);
+            resObj = JSON.parse(fullResponse);
         } catch {
-            await send({ type: 'message', text: res.content });
+            await send({ type: 'message', text: fullResponse });
             return;
         }
     }
@@ -39,16 +55,18 @@ app.on('message', async ({ send, activity }) => {
             parseable.chartType,
             parseable.options
         );
-        // Send the text first, then the card, as a single message with both
         const chartAndInsightsMsg = new MessageActivity(resObj.text || '').addAiGenerated();
         chartAndInsightsMsg.attachments = [{
             contentType: 'application/vnd.microsoft.card.adaptive',
-            content: card 
+            content: card
         }];
         await send(chartAndInsightsMsg);
-    } else {
-        const messageActivity = new MessageActivity(resObj.text || (typeof res.content === 'string' ? res.content : 'No chart or text response available.')).addAiGenerated();
-        await send(messageActivity);
+    } else if (resObj.text) {
+        // Only send a final text message if not already streamed
+        if (!sentMessageId) {
+            const messageActivity = new MessageActivity(resObj.text).addAiGenerated();
+            await send(messageActivity);
+        }
     }
 });
 
