@@ -15,8 +15,8 @@
     "termsOfUseUrl": "https://www.microsoft.com/legal/terms-of-use"
   },
   "description": {
-    "short": "Sample bot that repeats back what you say",
-    "full": "Sample bot that repeats back what you say"
+    "short": "Expert data analyst for AdventureWorks database",
+    "full": "Expert data analyst for AdventureWorks database"
   },
   "icons": {
     "outline": "outline.png",
@@ -26,17 +26,48 @@
   "staticTabs": [
     {
       "entityId": "conversations",
-      "scopes": ["personal"]
+      "scopes": [
+        "personal"
+      ]
     },
     {
       "entityId": "about",
-      "scopes": ["personal"]
+      "scopes": [
+        "personal"
+      ]
     }
   ],
   "bots": [
     {
       "botId": "${{BOT_ID}}",
-      "scopes": ["personal", "team", "groupChat"],
+      "scopes": [
+        "personal",
+        "team",
+        "groupChat"
+      ],
+      "commandLists": [
+        {
+          "scopes": [
+            "personal",
+            "team",
+            "groupChat"
+          ],
+          "commands": [
+            {
+              "title": "Annual sales from 2020-2022?",
+              "description": "View a chart showing sales trends over the past 3 years"
+            },
+            {
+              "title": "Show examples of charts.",
+              "description": "Show examples of charts that can be created."
+            },
+            {
+              "title": "What do you do?",
+              "description": "Learn about the capabilities of the Data Analyst."
+            }
+          ]
+        }
+      ],
       "isNotificationOnly": false,
       "supportsCalling": false,
       "supportsVideo": false,
