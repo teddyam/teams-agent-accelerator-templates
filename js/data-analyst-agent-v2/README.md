@@ -1,6 +1,6 @@
 <!--
 ---
-id: data-analyst-agent
+id: data-analyst-agent-v2
 title: "Data Analyst Agent"
 description: "Natural language interface for data exploration and visualization."
 longDescription: |
