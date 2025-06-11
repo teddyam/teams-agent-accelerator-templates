@@ -63,7 +63,7 @@ export function generateChartCard(
       xAxisTitle,
       yAxisTitle,
       data: queryResult.rows.map(row => ({
-        x: row[0],
+        x: String(row[0]), // ensure x is always a string
         y: row[1],
       }))
     });
