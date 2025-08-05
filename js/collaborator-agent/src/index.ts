@@ -12,6 +12,7 @@ const app = new App({
   plugins: [new DevtoolsPlugin()],
 });
 
+
 const storage = getMessageStorage();
 const manager = new ManagerPrompt(storage);
 const mockDataManager = new MockDataManager(storage);
